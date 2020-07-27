@@ -8,46 +8,43 @@
   <title>Ajax quest challenge</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <link rel='stylesheet' href='https://unpkg.com/bulma@0.7.5/css/bulma.min.css'>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </style>
 </head>
 
 <body>
-  <section class="section">
-    <div class="container">
-      <h1 class="title">Chuck Norris Jokes</h1>
-      <div class="content" id="chuck-norris"></div>
-        <button id="btn">Reload for another joke!</button>
+  <section class="d-flex justify-content-center">
+    <div class="d-flex flex-column ">
+      <h1 class="title">The Simpsons Quotes</h1>
+      <div class="content" id="simpson"></div>
+        <button id="btn" class="btn btn-success">Reload for another quote !</button>
     </div>
   </section>
-  <!-- We need to load axios first! -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
   <script>
-      // This function loads pokemon data from the Pokemon API
-      function fetchChuckNorrisFactsJSON() {
-          // Feel free to download this HTML and edit it, to use another Pokemon ID
-          const url = `https://api.chucknorris.io/jokes/random`;
+      function fetchSimpsonsJSON() {
+         
+          const url = `https://simpsons-quotes-api.herokuapp.com/quotes`;
           axios.get(url)
               .then(function(response) {
-                  return response.data; // SUBTLE difference with Fetch: response.data instead of response.json()
+                  return response.data;
               })
-              .then(function(jokes) {
-                  console.log('data decoded from JSON:', jokes);
-
-                  // Build a block of HTML
-                  document.querySelector('#chuck-norris').innerHTML = `
-                        <img src="${jokes.icon_url}">
-                        <p id="content"><strong>${jokes.value}</strong></p>
+              .then(function(quotes) {
+                  console.log('data decoded from JSON:', quotes);
+                  document.querySelector('#simpson').innerHTML = `
+                        <img src="${quotes[0].image}">
+                        <div id="content">
+                        <p><strong>${quotes[0].character} said :</strong></p>
+                        <p><strong>${quotes[0].quote}</strong></p>
+                        </div>
                         `;
               });
       }
 
-      fetchChuckNorrisFactsJSON();
+      fetchSimpsonsJSON();
       document.getElementById("btn").addEventListener("click", function () {
-          document.getElementById("content").innerHTML = fetchChuckNorrisFactsJSON();
+          document.getElementById("content").innerHTML = fetchSimpsonsJSON();
       });
   </script>
 </body>
