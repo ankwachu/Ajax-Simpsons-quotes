@@ -9,43 +9,46 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </style>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 </head>
 
 <body>
   <section class="d-flex justify-content-center">
     <div class="d-flex flex-column ">
-      <h1 class="title">The Simpsons Quotes</h1>
+      <h1 class="title">The Simpsons Quotes
+        <a href="https://github.com/ankwachu/Ajax-Simpsons-quotes"><i class="fab fa-github"></i></a>
+      </h1>
       <div class="content" id="simpson"></div>
-        <button id="btn" class="btn btn-success">Reload for another quote !</button>
+      <button id="btn" class="btn btn-success">Reload for another quote !</button>
     </div>
   </section>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js" integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
   <script>
-      function fetchSimpsonsJSON() {
-         
-          const url = `https://simpsons-quotes-api.herokuapp.com/quotes`;
-          axios.get(url)
-              .then(function(response) {
-                  return response.data;
-              })
-              .then(function(quotes) {
-                  console.log('data decoded from JSON:', quotes);
-                  document.querySelector('#simpson').innerHTML = `
+    function fetchSimpsonsJSON() {
+
+      const url = `https://simpsons-quotes-api.herokuapp.com/quotes`;
+      axios.get(url)
+        .then(function(response) {
+          return response.data;
+        })
+        .then(function(quotes) {
+          console.log('data decoded from JSON:', quotes);
+          document.querySelector('#simpson').innerHTML = `
                         <img src="${quotes[0].image}">
                         <div id="content">
                         <p><strong>${quotes[0].character} said :</strong></p>
                         <p><strong>${quotes[0].quote}</strong></p>
                         </div>
                         `;
-              });
-      }
+        });
+    }
 
-      fetchSimpsonsJSON();
-      document.getElementById("btn").addEventListener("click", function () {
-          document.getElementById("content").innerHTML = fetchSimpsonsJSON();
-      });
+    fetchSimpsonsJSON();
+    document.getElementById("btn").addEventListener("click", function() {
+      document.getElementById("content").innerHTML = fetchSimpsonsJSON();
+    });
   </script>
 </body>
+
 </html>
